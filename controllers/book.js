@@ -1,3 +1,4 @@
+const book = require("../model/book");
 const Book = require("../model/book");
 
 // create a new book
@@ -17,7 +18,10 @@ exports.create = async (req, res) => {
 // list all books
 // GET /api/all/books
 exports.listAllBooks = async (req, res) => {
-  const allBook = await Book.find({}).sort({ createdAt: 1 }).exec();
+  const allBook = await Book.find({})
+    .populate("author", "name")
+    .sort({ createdAt: 1 })
+    .exec();
   res.json(allBook);
 };
 
