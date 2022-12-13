@@ -26,30 +26,19 @@ exports.listAllBooks = async (req, res) => {
 };
 
 exports.bookById = (req, res, next, id) => {
-  Book.findById(id).exec((err, book) => {
-    if (err || !book) {
-      return res.status(400).json({
-        error: "Book not found",
-      });
-    }
-    req.book = book;
-    next();
-  });
+  Book.findById(id)
+    .populate("author", "name")
+    .exec((err, book) => {
+      if (err || !book) {
+        return res.status(400).json({
+          error: "Book not found",
+        });
+      }
+      req.book = book;
+      next();
+    });
 };
 
 exports.read = (req, res) => {
   return res.json(req.book);
-};
-
-// list a single book
-// GET /api/single/:book
-exports.listSingleBook = async (req, res) => {
-  try {
-    let book = req.params._id;
-    Book.findById({ _id: book }).exec();
-    res.json(book);
-  } catch (err) {
-    console.log(err);
-    return res.status(400).send("No matching id!");
-  }
 };
