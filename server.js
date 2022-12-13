@@ -22,14 +22,21 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+// import routes
+const authorRoutes = require("./routes/author");
+const bookRoutes = require("./routes/book");
+const userRoutes = require("./routes/user");
+
 // middlewares
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
 
-// route
-readdirSync("./routes").map((r) => app.use("/api", require(`./routes/${r}`)));
+// route middleware
+app.use("/api/author", authorRoutes);
+app.use("/api/books", bookRoutes);
+app.use("/api/user", userRoutes);
 
 app.get("/api/klarr/", (req, res) => {
   res.send("Hello from KLARR :)");
