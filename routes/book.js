@@ -2,7 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 // controllers
-const { create, listAllBooks, listSingleBook } = require("../controllers/book");
+const {
+  create,
+  listAllBooks,
+  listSingleBook,
+  bookById,
+  read,
+} = require("../controllers/book");
 
 // create a new book
 router.post("/create", create);
@@ -11,6 +17,8 @@ router.post("/create", create);
 router.get("/all", listAllBooks);
 
 // get single book
-router.get("/:book", listSingleBook);
+router.get("/:bookId", read);
+
+router.param("bookId", bookById);
 
 module.exports = router;

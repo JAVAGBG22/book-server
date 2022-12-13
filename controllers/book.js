@@ -21,6 +21,22 @@ exports.listAllBooks = async (req, res) => {
   res.json(allBook);
 };
 
+exports.bookById = (req, res, next, id) => {
+  Book.findById(id).exec((err, book) => {
+    if (err || !book) {
+      return res.status(400).json({
+        error: "Book not found",
+      });
+    }
+    req.book = book;
+    next();
+  });
+};
+
+exports.read = (req, res) => {
+  return res.json(req.book);
+};
+
 // list a single book
 // GET /api/single/:book
 exports.listSingleBook = async (req, res) => {
