@@ -13,3 +13,8 @@ exports.create = async (req, res) => {
     return res.status(400).send("User creation failed");
   }
 };
+
+exports.getAll = async (req, res) => {
+  const allUsers = await User.find({}).exec();
+  res.json(allUsers);
+};
