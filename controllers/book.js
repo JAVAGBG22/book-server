@@ -20,6 +20,7 @@ exports.create = async (req, res) => {
 exports.listAllBooks = async (req, res) => {
   const allBook = await Book.find({})
     .populate("author", "name")
+    .populate("coAuthor", "name")
     .sort({ createdAt: 1 })
     .exec();
   res.json(allBook);
@@ -28,6 +29,7 @@ exports.listAllBooks = async (req, res) => {
 exports.bookById = (req, res, next, id) => {
   Book.findById(id)
     .populate("author", "name")
+    .populate("coAuthor", "name")
     .exec((err, book) => {
       if (err || !book) {
         return res.status(400).json({
