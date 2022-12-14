@@ -14,6 +14,8 @@ exports.create = async (req, res) => {
   }
 };
 
+// get all users
+// GET /api/user/all
 exports.getAll = async (req, res) => {
   const allUsers = await User.find({}).exec();
   res.json(allUsers);

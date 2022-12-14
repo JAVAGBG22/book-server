@@ -1,7 +1,7 @@
 const Author = require("../model/author");
 
 // create a new author
-// POST /api/create/author
+// POST /api/author/create
 exports.create = async (req, res) => {
   try {
     const author = await new Author({

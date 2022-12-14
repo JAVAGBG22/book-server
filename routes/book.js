@@ -13,6 +13,7 @@ router.get("/all", listAllBooks);
 // get single book
 router.get("/:bookId", read);
 
+// bookId param
 router.param("bookId", bookById);
 
 module.exports = router;
